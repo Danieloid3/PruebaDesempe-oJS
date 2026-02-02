@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": "u001",
+      "username": "john_doe",
+      "email": "john@email.com",
+      "password": "securepassword123",
+      "role": "customer"
+    }
+
+  ],
+  "products": [
+    {
+      "id": "t001",
+      "title": "Complete project documentation",
+      "category": "Work",
+      "priority": "high",
+      "dueDate": "2026-09-30",
+      "description": "Finalize and submit the project documentation by end of the week.",
+      "status": "in-progress"
+    }
+
+  ]
+}
