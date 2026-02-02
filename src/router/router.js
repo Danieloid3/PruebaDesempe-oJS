@@ -28,6 +28,12 @@ export async function router() {
         hash = '#myTasks';
         window.location.hash = '#myTasks';
     }
+    const user = getCurrentUser();
+    if (!user && (hash === '#myTasks' || hash === '#dashboard')) {
+        // Si no hay usuario y la ruta no es pública, mandar al login
+        window.location.hash = '#login';
+        return;
+    }
 
     // 2. Buscar la vista correspondiente
     const viewFn = routes[hash];
@@ -77,7 +83,7 @@ function renderError404() {
     div.innerHTML = `
         <h1 class="page-title">404</h1>
         <p class="subtitle">Page not found</p>
-        <a href="#menu" class="button primary">Go back to Menu</a>
+        <a href="#myTasks" class="button primary">Go back to My tasks</a>
     `;
     render(div);
 }
