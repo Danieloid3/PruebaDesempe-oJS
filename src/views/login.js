@@ -99,9 +99,10 @@ async function handleLogin(event) {
 
         console.log('[LOGIN] Esperando 1 segundos antes de redirigir...');
         setTimeout(() => {
-            console.log('[LOGIN] Redirigiendo a dashboard...');
-            window.location.hash = '#dashboard';
-            console.log('[LOGIN] Hash cambiado a #dashboard');
+            const redirectHash = result.user.role === 'admin' ? '#dashboard' : '#myTasks';
+            console.log(`[LOGIN] Redirigiendo a ${redirectHash}...`);
+            window.location.hash = redirectHash;
+            console.log(`[LOGIN] Hash cambiado a ${redirectHash}`);
         }, 1000);
     } else {
         console.error('[LOGIN] Login fallido:', result.error);

@@ -1,7 +1,17 @@
 // javascript
+import { isAdmin } from '../services/authService.js';
+
 export function Sidebar() {
     const aside = document.createElement('aside');
     aside.classList.add('sidebar');
+
+    const adminLink = isAdmin() ? `
+          <li class="sidebar-nav-item">
+            <a href="#dashboard" class="sidebar-link active">
+              <span class="icon">🏠</span>
+              <span>Dashboard</span>
+            </a>
+          </li>` : '';
 
     aside.innerHTML = `
         <div class="sidebar-logo">
@@ -10,14 +20,9 @@ export function Sidebar() {
         </div>
 
         <ul class="sidebar-nav">
+          ${adminLink}
           <li class="sidebar-nav-item">
-            <a href="#dashboard" class="sidebar-link active">
-              <span class="icon">🏠</span>
-              <span>Dashboard</span>
-            </a>
-          </li>
-          <li class="sidebar-nav-item">
-            <a href="#tasks" class="sidebar-link">
+            <a href="#myTasks" class="sidebar-link">
               <span class="icon">☑️</span>
               <span>My Tasks</span>
             </a>

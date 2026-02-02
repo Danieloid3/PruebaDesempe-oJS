@@ -14,7 +14,7 @@
     --bg-sidebar: #ffffff;
     --bg-sidebar-active: #e5efff;
     --bg-tag: #eef3ff;
-
+    --color-text-primary: #1A1A1A;
     --border-soft: #e4e7f0;
     --border-input: #d7dce8;
 
@@ -848,6 +848,41 @@ tbody tr:hover {
 /* Campo de búsqueda Assigned To (opcional: igual que input-field pero redondeado) */
 .assigned-to-input {
     border-radius: 999px;
+}
+
+
+.btn-logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-soft);
+    background: transparent;
+    color: var(--text-danger);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+    background: #fff5f5;
+    border-color: #feb2b2;
+    transform: translateY(-1px);
+}
+
+.btn-logout:active {
+    transform: translateY(0);
+}
+
+.btn-logout .icon {
+    font-size: 1.1rem;
+}
+
+.nav-link.active {
+    color: var(--color-text-primary);
+    font-weight: 600;
 }
 
 

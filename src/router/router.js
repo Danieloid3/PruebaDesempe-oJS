@@ -1,10 +1,12 @@
 // src/router/router.js
 import { render } from '../main.js';
 
-import { getCurrentUser } from '../services/authService.js';
+import { getCurrentUser, isAdmin } from '../services/authService.js';
 import {LoginView} from '../views/login.js';
 import {dashboardView} from '../views/adminDashboard.js';
 import {RegisterView} from '../views/register.js';
+import {myTasks} from '../views/myTasks.js';
+import {profileView} from '../views/profile.js';
 
 
 // Mapeo de rutas a funciones de vista
@@ -13,11 +15,19 @@ const routes = {
     '#login': LoginView,
     '#dashboard': dashboardView,
     '#register': RegisterView,
+    '#myTasks' : myTasks,
+    '#profile': profileView
 };
 
 export async function router() {
-    // 1. Obtener el hash actual o usar '#menu' como default
-    const hash = window.location.hash || '#login';
+    // 1. Obtener el hash actual o usar '#login' como default
+    let hash = window.location.hash || '#login';
+
+    // Validación de rol para el dashboard
+    if (hash === '#dashboard' && !isAdmin()) {
+        hash = '#myTasks';
+        window.location.hash = '#myTasks';
+    }
 
     // 2. Buscar la vista correspondiente
     const viewFn = routes[hash];
@@ -32,7 +42,7 @@ export async function router() {
             if (typeof viewContent === 'string') {
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = viewContent;
-                // Si es un placeholder simple, lo pasamos tal cual, si DashboardView devuelve un nodo, render lo maneja
+
                 render(tempDiv);
             } else {
                 render(viewContent);
@@ -51,7 +61,7 @@ export async function router() {
 }
 
 function updateActiveNavLink(hash) {
-    const navLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('.sidebar-link');
     navLinks.forEach(link => {
         if (link.getAttribute('href') === hash) {
             link.classList.add('active');

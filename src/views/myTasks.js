@@ -1,12 +1,12 @@
-
 import { Task } from '../components/Task.js';
 import { LoadingView } from '../components/Loading.js';
 import JsonService from '../services/jsonService.js';
 import { getCurrentUser } from '../services/authService.js';
 import { Stats } from '../components/Stats.js';
 import { CreateTaskModal } from '../components/CreateTaskModal.js';
+import {StatsUser} from "../components/StatsUser.js"
 
-export async function dashboardView() {
+export async function myTasks() {
     // Contenedor principal de la vista
     const main = document.createElement('main');
     main.classList.add('app-content-wrapper');
@@ -15,9 +15,8 @@ export async function dashboardView() {
     card.classList.add('app-content-card');
 
     const currentUser = getCurrentUser();
-    const isAdmin = currentUser && currentUser.role === 'admin';
+    const isAdmin = currentUser && currentUser.role === 'admin' || 'customer';
 
-    // Cabecera con título y botón de nueva tarea (solo admin)
     card.innerHTML = `
         <header class="page-header">
           <div>
@@ -32,18 +31,15 @@ export async function dashboardView() {
         </header>
     `;
 
-    // \[2\] Placeholder para el bloque de estadísticas
     const statsPlaceholder = document.createElement('div');
     statsPlaceholder.textContent = 'Loading stats...';
     card.appendChild(statsPlaceholder);
 
-    // \[3\] Barra de búsqueda + tabs de estado
     const searchTabs = document.createElement('div');
     searchTabs.style.display = 'flex';
     searchTabs.style.alignItems = 'center';
     searchTabs.style.justifyContent = 'space-between';
     searchTabs.style.gap = '1rem';
-
     searchTabs.innerHTML = `
         <div class="search-bar" style="flex: 1">
             <input
@@ -62,7 +58,6 @@ export async function dashboardView() {
     `;
     card.appendChild(searchTabs);
 
-    // Tabla base (estructura estática)
     const tableWrapper = document.createElement('div');
     tableWrapper.classList.add('table-wrapper');
     tableWrapper.innerHTML = `
@@ -93,24 +88,20 @@ export async function dashboardView() {
 
     main.appendChild(card);
 
-    // \[5\] Estado y servicios
     const jsonService = new JsonService();
     let allTasks = [];               // cache de todas las tareas (products)
     let currentStatusFilter = 'all'; // 'all' | 'pending' | 'in-progress' | 'completed'
-    let currentSearch = '';          // texto de búsqueda
-
-    // Referencias a nodos reutilizados
+    let currentSearch = '';
     const tbody = tableWrapper.querySelector('#tasksTbody');
     const tableFooter = tableWrapper.querySelector('#tableFooter');
     const searchInput = searchTabs.querySelector('#taskSearchInput');
     const tabs = searchTabs.querySelectorAll('#taskTabs .tab');
     const openTaskModalBtn = card.querySelector('#openTaskModalBtn');
 
-    // Carga inicial de tareas desde la API
     async function loadTasks() {
         try {
             const products = await jsonService.getProducts();
-            allTasks = products;
+            allTasks = products.filter(product => product.assignedTo === currentUser.name);
             await renderTasks();
         } catch (err) {
             console.error('Error cargando tasks/products', err);
@@ -125,7 +116,6 @@ export async function dashboardView() {
         }
     }
 
-    // \[8\] Filtrado en memoria según tab + búsqueda
     function getFilteredTasks() {
         return allTasks.filter(task => {
             const status = task.status || 'pending';
@@ -141,7 +131,6 @@ export async function dashboardView() {
         });
     }
 
-    // \[9\] Renderizado de filas de la tabla usando el componente Task
     async function renderTasks() {
         const filtered = getFilteredTasks();
 
@@ -174,7 +163,7 @@ export async function dashboardView() {
         tableFooter.textContent = `Showing ${filtered.length} task${filtered.length !== 1 ? 's' : ''}`;
     }
 
-    // \[10\] Manejo de tabs (cambio de estado)
+
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(t => t.classList.remove('active'));
@@ -185,7 +174,6 @@ export async function dashboardView() {
         });
     });
 
-    // \[11\] Búsqueda por texto
     searchInput.addEventListener('input', () => {
         currentSearch = searchInput.value.trim();
         renderTasks();
@@ -197,7 +185,7 @@ export async function dashboardView() {
         const deleteBtn = e.target.closest('.task-delete-btn');
         const viewBtn = e.target.closest('.task-view-btn');
 
-        // Editar (solo admin)
+
         if (editBtn && isAdmin) {
             const id = editBtn.dataset.id;
             const existing = allTasks.find(p => String(p.id) === String(id));
@@ -218,7 +206,7 @@ export async function dashboardView() {
             return;
         }
 
-        // Eliminar (solo admin)
+
         if (deleteBtn && isAdmin) {
             const id = deleteBtn.dataset.id;
             const confirmDelete = window.confirm('Are you sure you want to delete this task?');
@@ -236,14 +224,11 @@ export async function dashboardView() {
         }
 
         // Ver detalle (modo lectura para no-admin, aquí solo placeholder)
-        if (viewBtn && !isAdmin) {
-            const id = viewBtn.dataset.id;
-            console.log('View task', id);
-        }
+
     });
 
     // \[13\] Botón de crear nueva tarea (solo admin)
-    if (isAdmin && openTaskModalBtn) {
+    if (openTaskModalBtn) {
         openTaskModalBtn.addEventListener('click', () => {
             const modal = CreateTaskModal({
                 mode: 'create',
@@ -260,7 +245,7 @@ export async function dashboardView() {
 
     // \[14\] Cargar stats de forma asíncrona y reemplazar el placeholder
     try {
-        const statsRow = await Stats();
+        const statsRow = await StatsUser();
         statsPlaceholder.replaceWith(statsRow);
     } catch (err) {
         console.error('Error cargando stats', err);
@@ -271,4 +256,5 @@ export async function dashboardView() {
     await loadTasks();
 
     return main;
+
 }

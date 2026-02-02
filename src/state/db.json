@@ -2,14 +2,14 @@
   "users": [
     {
       "id": "u001",
-      "username": "john_doe",
+      "name": "john_doe",
       "email": "john@email.com",
       "password": "securepassword123",
       "role": "customer"
     },
     {
       "id": "u002",
-      "username": "Daniela",
+      "name": "Daniela",
       "email": "danigq000@gmail.com",
       "password": "123456",
       "role": "admin"
@@ -32,6 +32,26 @@
       "dueDate": "02/02/2026",
       "assignedTo": "Daniela",
       "description": "Terminar la prueba de JS aa"
+    },
+    {
+      "id": "2e99",
+      "title": "Hacer ejercicio",
+      "category": "Physics",
+      "priority": "low",
+      "status": "pending",
+      "dueDate": "02/02/2026",
+      "description": "asdasd",
+      "assignedTo": "Mary"
+    },
+    {
+      "id": "ae8d",
+      "title": "Comer",
+      "category": "Mathematics",
+      "priority": "low",
+      "status": "completed",
+      "dueDate": "02/02/2026",
+      "description": "",
+      "assignedTo": "Mary"
     }
   ]
 }
