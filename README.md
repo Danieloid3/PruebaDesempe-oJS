@@ -1,72 +1,72 @@
-# Nombre del Proyecto
+# Project Name
 
-SPA (Single Page Application) construida con JavaScript Vanilla, arquitectura modular y `json-server` como API REST de desarrollo.
+SPA (Single Page Application) built with Vanilla JavaScript, modular architecture, and `json-server` as a development REST API.
 
-## 🚀 Características principales
+## 🚀 Key Features
 
-- SPA sin frameworks (JavaScript Vanilla ES Modules).
-- Ruteo en el frontend basado en hash o history API (según implementación).
-- Vistas y componentes desacoplados en módulos.
-- Consumo de `json-server` como backend simulado.
-- Servicios centralizados para acceso a datos (fetch / axios).
-- Scripts de `npm` para desarrollo y build.
-- Estructura preparada para escalar y reutilizar en otros proyectos.
+- Framework-less SPA (Vanilla JavaScript ES Modules).
+- Frontend routing based on hash or history API (depending on implementation).
+- Views and components decoupled into modules.
+- Consumption of `json-server` as a simulated backend.
+- Centralized services for data access (fetch / axios).
+- `npm` scripts for development and build.
+- Structure prepared for scaling and reuse in other projects.
 
-## 📁 Estructura de carpetas (genérica)
+## 📁 Folder Structure (generic)
 
-La estructura puede variar ligeramente, pero la idea base es esta:
+The structure may vary slightly, but this is the core idea:
 
 - `src/`
     - `index.html`
-    - `main.js` → punto de entrada de la aplicación.
-    - `router/` → lógica de enrutamiento (según implementación).
-    - `views/` → vistas principales de la SPA (por ejemplo: `home`, `admin`, `login`, etc.).
-    - `components/` → componentes reutilizables (header, footer, cards, modales, etc.).
-    - `services/` → módulos que encapsulan las llamadas a `json-server`.
-    - `styles/` → estilos globales y específicos.
-    - `utils/` → funciones de ayuda (helpers) reutilizables.
+    - `main.js` → application entry point.
+    - `router/` → routing logic (depending on implementation).
+    - `views/` → main views of the SPA (e.g., `home`, `admin`, `login`, etc.).
+    - `components/` → reusable components (header, footer, cards, modals, etc.).
+    - `services/` → modules that encapsulate `json-server` calls.
+    - `styles/` → global and specific styles.
+    - `utils/` → reusable helper functions.
 
-- `db.json` → base de datos falsa para `json-server`.
-- `package.json` → scripts y dependencias de `npm`.
+- `db.json` → mock database for `json-server`.
+- `package.json` → `npm` scripts and dependencies.
 
-## 🛠️ Requisitos previos
+## 🛠️ Prerequisites
 
-- Node.js (versión LTS recomendada).
-- `npm` (se instala junto con Node).
+- Node.js (LTS version recommended).
+- `npm` (installed with Node).
 
-Opcionalmente:
+Optionally:
 
-- Navegador moderno (Chrome, Firefox, Edge, etc.).
-- Extensión Live Server o similar si no se usa un bundler con dev server.
+- Modern browser (Chrome, Firefox, Edge, etc.).
+- Live Server extension or similar if not using a bundler with dev server.
 
-## 📦 Instalación
+## 📦 Installation
 
-1. Clonar el repositorio:
+1. Clone the repository:
 
 ```bash
-git clone <URL_DEL_REPO>
-cd <NOMBRE_DEL_PROYECTO>
+git clone <REPO_URL>
+cd <PROJECT_NAME>
 ```
 
-2. Instalar dependencias:
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-## 🗃️ Configuración de `json-server`
+## 🗃️ `json-server` Configuration
 
-Este proyecto usa `json-server` como API REST falsa para desarrollo.
+This project uses `json-server` as a mock REST API for development.
 
-### Scripts típicos en `package.json`
+### Typical scripts in `package.json`
 
-Asegúrate de tener algo similar:
+Make sure you have something similar:
 
 ```json
 {
   "scripts": {
     "dev": "vite",                  
-    "json-server": "json-server --watch db.json --port 3001",
+    "json-server": "json-server --watch db.json --port 3000",
     "start": "npm-run-all --parallel dev json-server"
   },
   "devDependencies": {
@@ -76,10 +76,10 @@ Asegúrate de tener algo similar:
 }
 ```
 
-- Puerto de `json-server`: `http://localhost:3000` (puedes cambiarlo).
-- Archivo de datos: `db.json`.
+- `json-server` port: `http://localhost:3000` (can be changed).
+- Data file: `db.json`.
 
-### Ejemplo mínimo de `db.json`
+### Minimal `db.json` example
 
 ```json
 {
@@ -89,82 +89,76 @@ Asegúrate de tener algo similar:
 }
 ```
 
-Adapta las colecciones según tu dominio (por ejemplo, `tickets`, `posts`, `tasks`, etc.).
+Adapt the collections according to your domain (e.g., `tickets`, `posts`, `tasks`, etc.).
 
-## ▶️ Cómo ejecutar el proyecto en desarrollo
+## ▶️ How to run the project in development
 
-1. Levantar frontend y `json-server` en paralelo:
+1. Start frontend and `json-server` in parallel:
 
 ```bash
 npm start
 ```
 
-- El frontend quedará disponible típicamente en `http://localhost:5173` (o el puerto que use tu dev server).
-- La API de `json-server` quedará en `http://localhost:3001`.
+- The frontend will typically be available at `http://localhost:5173` (or the port your dev server uses).
+- The `json-server` API will be at `http://localhost:3000`.
 
-También puedes ejecutar los comandos por separado:
+You can also run the commands separately:
 
 ```bash
 npm run dev
 npm run json-server
 ```
 
-## 🧩 Arquitectura de la SPA
+## 🧩 SPA Architecture
 
-### 1. Punto de entrada
+### 1. Entry Point
 
-- `src/main.js` se encarga de:
-    - Inicializar la aplicación.
-    - Configurar el router (si existe).
-    - Renderizar la vista inicial en el `root` del DOM.
+- `src/main.js` is responsible for:
+    - Initializing the application.
+    - Configuring the router (if it exists).
+    - Rendering the initial view in the DOM `root`.
 
-### 2. Vistas (`views`)
+### 2. Views (`views`)
 
-Cada vista generalmente es una función que:
+Each view is generally a function that:
 
-- Crea y devuelve un nodo `HTMLElement` (por ejemplo, un `main` o un `section`).
-- Conecta eventos (click, submit, etc.).
-- Opcionalmente, consume servicios para obtener datos desde `json-server`.
+- Creates and returns an `HTMLElement` node (e.g., a `main` or a `section`).
+- Connects events (click, submit, etc.).
+- Optionally consumes services to fetch data from `json-server`.
 
+### 3. Components (`components`)
 
-### 3. Componentes (`components`)
-
-Elementos reutilizables de UI como:
+Reusable UI elements such as:
 
 - `Navbar`, `Sidebar`, `Footer`
 - `Card`, `Table`, `Modal`
-- Formularios genéricos
+- Generic forms
 
-Cada componente suele devolver un `HTMLElement` ya configurado.
+Each component usually returns a pre-configured `HTMLElement`.
 
-### 4. Servicios (`services`)
+### 4. Services (`services`)
 
-Módulos que encapsulan toda la lógica de acceso a la API. Por ejemplo:
+Modules that encapsulate all API access logic. For example:
 
-- `jsonService.js` o servicios específicos por recurso.
+- `jsonService.js` or resource-specific services.
 
-Responsabilidades típicas:
+Typical responsibilities:
 
-- Definir un `BASE_URL` (por ejemplo, `http://localhost:3000`).
-- Proveer funciones CRUD: `getAll`, `getById`, `create`, `update`, `remove`.
-- Manejar errores y devolver una estructura uniforme (por ejemplo `{ success, data, error }`).
+- Define a `BASE_URL` (e.g., `http://localhost:3000`).
+- Provide CRUD functions: `getAll`, `getById`, `create`, `update`, `remove`.
+- Handle errors and return a uniform structure (e.g., `{ success, data, error }`).
 
-### 5. Utilidades (`utils`)
+### 5. Utilities (`utils`)
 
+- Data normalization.
+- Local storage / session storage management.
 
-- Normalización de datos.
-- Manejo de almacenamiento local/session storage.
+## 🔧 Build and Deployment (generic)
 
-
-
-
-## 🔧 Build y despliegue (genérico)
-
-Dependiendo del bundler (por ejemplo, Vite):
+Depending on the bundler (e.g., Vite):
 
 ```bash
 npm run build
 ```
 
-Esto generará una carpeta `dist/` lista para desplegar en cualquier hosting estático (Netlify, Vercel, GitHub Pages, etc.).
-
+This will generate a `dist/` folder ready to be deployed on any static hosting (Netlify, Vercel, GitHub Pages, etc.).
