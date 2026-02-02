@@ -39,19 +39,19 @@
       "category": "Physics",
       "priority": "low",
       "status": "pending",
-      "dueDate": "02/02/2026",
+      "dueDate": "08/02/2026",
       "description": "asdasd",
       "assignedTo": "Mary"
     },
     {
-      "id": "ae8d",
-      "title": "Comer",
+      "id": "dcc7",
+      "title": "Hacer tareas",
       "category": "Mathematics",
-      "priority": "low",
-      "status": "completed",
+      "priority": "high",
+      "status": "in-progress",
       "dueDate": "02/02/2026",
       "description": "",
-      "assignedTo": "Mary"
+      "assignedTo": "john_doe"
     }
   ]
 }

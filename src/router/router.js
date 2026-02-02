@@ -23,11 +23,11 @@ export async function router() {
     // 1. Obtener el hash actual o usar '#login' como default
     let hash = window.location.hash || '#login';
 
-    // Validación de rol para el dashboard
-    if (hash === '#dashboard' && !isAdmin()) {
-        hash = '#myTasks';
-        window.location.hash = '#myTasks';
-    }
+    // // Validación de rol para el dashboard
+    // if (hash === '#dashboard' && !isAdmin()) {
+    //     hash = '#myTasks';
+    //     window.location.hash = '#myTasks';
+    // }
     const user = getCurrentUser();
     if (!user && (hash === '#myTasks' || hash === '#dashboard')) {
         // Si no hay usuario y la ruta no es pública, mandar al login
