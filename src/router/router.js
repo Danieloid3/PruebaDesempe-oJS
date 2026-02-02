@@ -3,12 +3,16 @@ import { render } from '../main.js';
 
 import { getCurrentUser } from '../services/authService.js';
 import {LoginView} from '../views/login.js';
+import {dashboardView} from '../views/adminDashboard.js';
+import {RegisterView} from '../views/register.js';
 
 
 // Mapeo de rutas a funciones de vista
 const routes = {
 
     '#login': LoginView,
+    '#dashboard': dashboardView,
+    '#register': RegisterView,
 };
 
 export async function router() {

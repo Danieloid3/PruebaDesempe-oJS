@@ -88,4 +88,17 @@ export default class JsonService {
     }
 
 
+    async getUsers() {
+        try {
+            const res = await fetch(API_URLS.USERS);
+            if (!res.ok) {
+                throw new Error(`Error HTTP ${res.status}`);
+            }
+            return await res.json();
+        } catch (err) {
+            console.error('Users not obtained', err);
+            throw new Error('Could not connect to the Users API.');
+        }
+    }
+
 }

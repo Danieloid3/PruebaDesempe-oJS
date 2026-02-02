@@ -35,6 +35,14 @@
     --radius-md: 12px;
     --radius-sm: 8px;
     --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.08);
+    --color-error: #E74C3C;
+    --color-success: #00D26B;
+
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
 }
 
 body {
@@ -698,7 +706,11 @@ tbody tr:hover {
     height: 48px;
     border: 4px solid #e5e7eb;
     border-top-color: #2563eb;
-    border-radius: 50%;
+    border-radius: 50%;    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
     animation: spin 1s linear infinite;
     margin: 0 auto 1rem;
 }
@@ -719,6 +731,125 @@ tbody tr:hover {
     color: #9ca3af;
     font-size: 0.875rem;
 }
+
+/* css */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 40;
+}
+
+.modal {
+    background: var(--bg-card);
+    border-radius: 24px;
+    box-shadow: var(--shadow-soft);
+    width: 640px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow: auto;
+    padding: 1.8rem 2rem 1.6rem;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.modal-close-btn {
+    border: none;
+    background: transparent;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+.modal-body {
+    margin-top: 1rem;
+}
+
+/* Mensajes en el modal */
+.modal-message {
+    margin-top: 0.7rem;
+    font-size: 0.85rem;
+}
+
+.modal-message.error {
+    color: var(--color-error);
+}
+
+.modal-message.success {
+    color: var(--color-success);
+}
+/* css */
+/* Contenedor relativo para que la lista se posicione respecto al campo */
+.form-group-assigned-to {
+    position: relative;
+}
+
+/* Lista desplegable de usuarios */
+.assigned-to-list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    margin-top: 0.25rem;
+    background: #ffffff;
+    border: 1px solid var(--border-input);
+    border-radius: var(--radius-sm);
+    max-height: 220px;
+    overflow-y: auto;
+    list-style: none;
+    z-index: 50;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    padding: 0.25rem 0;
+}
+
+/* Cada item de usuario */
+.assigned-to-item {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    color: var(--text-main);
+}
+
+/* Circulito tipo avatar */
+.assigned-to-item::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: #e5e7eb;
+}
+
+/* Hover */
+.assigned-to-item:hover {
+    background: #f3f4ff;
+}
+
+/* Item mensaje (sin usuarios / cargando) */
+.assigned-to-item.disabled {
+    color: var(--text-light);
+    cursor: default;
+}
+
+/* Campo de búsqueda Assigned To (opcional: igual que input-field pero redondeado) */
+.assigned-to-input {
+    border-radius: 999px;
+}
+
 
 /* Responsivo básico */
 

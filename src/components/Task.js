@@ -8,8 +8,8 @@ export async function Task(productId, isAdmin = false) {
     // Mapeamos el response a la estructura de Task
     const data = {
         id: product.id,
-        title: product.title || product.name || 'Untitled task',
-        assignee: product.assignee || 'Unassigned',
+        title: product.title ||  'Untitled task',
+        assignee: product.assignedTo || 'Unassigned',
         status: product.status || 'pending',      // 'in-progress' | 'pending' | 'completed'
         priority: product.priority || 'medium',   // 'high' | 'medium' | 'low'
         dueDate: product.dueDate || 'No date'

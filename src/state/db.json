@@ -6,19 +6,32 @@
       "email": "john@email.com",
       "password": "securepassword123",
       "role": "customer"
+    },
+    {
+      "id": "u002",
+      "username": "Daniela",
+      "email": "danigq000@gmail.com",
+      "password": "123456",
+      "role": "admin"
+    },
+    {
+      "id": "0040",
+      "name": "Mary",
+      "email": "mary@gmail.com",
+      "password": "123456",
+      "role": "customer"
     }
-
   ],
   "products": [
     {
-      "id": "t001",
-      "title": "Complete project documentation",
-      "category": "Work",
+      "id": "5eb9",
+      "title": "Completar la prueba",
+      "category": "Computer Science",
       "priority": "high",
-      "dueDate": "2026-09-30",
-      "description": "Finalize and submit the project documentation by end of the week.",
-      "status": "in-progress"
+      "status": "in-progress",
+      "dueDate": "02/02/2026",
+      "assignedTo": "Daniela",
+      "description": "Terminar la prueba de JS aa"
     }
-
   ]
 }

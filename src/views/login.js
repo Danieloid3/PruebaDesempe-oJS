@@ -57,7 +57,7 @@ export function LoginView() {
 
       <div class="login-footer">
         <span>Don't have an account?</span>
-        <a href="#">Register</a>
+        <a href="#register">Register</a>
       </div>
     </main>
     
@@ -99,9 +99,9 @@ async function handleLogin(event) {
 
         console.log('[LOGIN] Esperando 1 segundos antes de redirigir...');
         setTimeout(() => {
-            console.log('[LOGIN] Redirigiendo a menu...');
-            window.location.hash = '#menu';
-            console.log('[LOGIN] Hash cambiado a #menu');
+            console.log('[LOGIN] Redirigiendo a dashboard...');
+            window.location.hash = '#dashboard';
+            console.log('[LOGIN] Hash cambiado a #dashboard');
         }, 1000);
     } else {
         console.error('[LOGIN] Login fallido:', result.error);

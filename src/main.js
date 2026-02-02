@@ -1,26 +1,37 @@
-import { Navbar } from "./components/Navbar.js";
-import { router } from "./router/router.js";
-import { Sidebar } from "./components/Sidebar.js";
+// javascript
+import { Navbar } from './components/Navbar.js';
+import { router } from './router/router.js';
+import { Sidebar } from './components/Sidebar.js';
 
 const app = document.getElementById('app');
 
 export function render(viewNode) {
     app.innerHTML = '';
 
-    // 1. Identificar la ruta actual (si está vacía, asumimos que es #login)
     const currentPath = window.location.hash || '#login';
-
-    // 2. Definir en qué rutas NO queremos ver el Navbar
     const noNavbarRoutes = ['#login', '#register'];
 
-    // 3. Solo agregar Navbar si la ruta actual NO está en la lista de excluidas
     if (!noNavbarRoutes.includes(currentPath)) {
-        app.appendChild(Navbar());
-        app.appendChild(Sidebar());
-    }
+        const layout = document.createElement('div');
+        layout.classList.add('app-layout');
 
-    // 4. Agregar el contenido de la vista
-    app.appendChild(viewNode);
+        const sidebar = Sidebar();
+
+        const appMain = document.createElement('div');
+        appMain.classList.add('app-main');
+
+        const header = Navbar();
+
+        appMain.appendChild(header);
+        appMain.appendChild(viewNode);
+
+        layout.appendChild(sidebar);
+        layout.appendChild(appMain);
+
+        app.appendChild(layout);
+    } else {
+        app.appendChild(viewNode);
+    }
 }
 
 window.addEventListener('hashchange', router);
